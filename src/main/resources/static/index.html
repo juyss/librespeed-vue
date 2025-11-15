@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LibreSpeed Vue</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+  <div class="container">
+    <div class="header">LibreSpeed</div>
+    <div class="panel">
+      <div class="gauges">
+        <div class="gauge">
+          <div class="label">下载</div>
+          <div class="value">{{ formatMbps(downloadMbps) }}</div>
+          <div class="unit">Mbps</div>
+        </div>
+        <div class="gauge">
+          <div class="label">上传</div>
+          <div class="value">{{ formatMbps(uploadMbps) }}</div>
+          <div class="unit">Mbps</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span>延迟</span><strong>{{ formatMs(pingMs) }}</strong> ms</div>
+        <div class="stat"><span>抖动</span><strong>{{ formatMs(jitterMs) }}</strong> ms</div>
+        <div class="stat"><span>IP</span><strong>{{ ip }}</strong></div>
+      </div>
+      <div class="actions">
+        <button :disabled="running" class="btn" @click="start">开始测速</button>
+        <button :disabled="!running" class="btn secondary" @click="stop">停止</button>
+      </div>
+      <div class="progress" v-if="running">
+        <div class="bar" :style="{ width: progress + '%' }"></div>
+      </div>
+    </div>
+    <div class="footer">No Flash, No Java, No WebSocket</div>
+  </div>
+</div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
